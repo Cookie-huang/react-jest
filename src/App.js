@@ -1,9 +1,10 @@
 import React from "react";
+import TodoList from "./containers/TodoList";
 
 function App() {
   return (
-    <div className="app" title="hello">
-      Hello World
+    <div>
+      <TodoList />
     </div>
   );
 }
