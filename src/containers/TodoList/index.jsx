@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
+import UndoList from "./components/UndoList";
+import "./style.css";
 
 class TodoList extends Component {
   constructor(props) {
@@ -15,15 +17,21 @@ class TodoList extends Component {
     });
   };
 
+  deleteItem = index => {
+    const { undoList } = this.state;
+    undoList.splice(index, 1);
+    this.setState({
+      undoList
+    });
+  };
+
   render() {
     const { undoList } = this.state;
 
     return (
       <div>
         <Header addUndoItem={this.addUndoItem} />
-        {undoList.map((item, index) => {
-          return <div key={index}>{item}</div>;
-        })}
+        <UndoList list={undoList} deleteItem={this.deleteItem} />
       </div>
     );
   }
