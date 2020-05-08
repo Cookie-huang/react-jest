@@ -13,7 +13,13 @@ class TodoList extends Component {
 
   addUndoItem = value => {
     this.setState({
-      undoList: [...this.state.undoList, value]
+      undoList: [
+        ...this.state.undoList,
+        {
+          status: "div",
+          value
+        }
+      ]
     });
   };
 
@@ -25,13 +31,60 @@ class TodoList extends Component {
     });
   };
 
+  changeStatus = index => {
+    const newList = this.state.undoList.map((item, listIndex) => {
+      if (index === listIndex) {
+        return {
+          ...item,
+          status: "input"
+        };
+      }
+      return {
+        ...item,
+        status: "div"
+      };
+    });
+    this.setState({
+      undoList: newList
+    });
+  };
+
+  handleBlur = index => {
+    const newList = this.state.undoList.map((item, listIndex) => {
+      if (index === listIndex) {
+        return {
+          ...item,
+          status: "div"
+        };
+      }
+      return item;
+    });
+    this.setState({
+      undoList: newList
+    });
+  };
+
+  valueChange = (index, value) => {
+    const { undoList } = this.state;
+    undoList[index].value = value;
+    this.setState({
+      undoList
+    });
+  };
+
   render() {
     const { undoList } = this.state;
 
     return (
       <div>
         <Header addUndoItem={this.addUndoItem} />
-        <UndoList list={undoList} deleteItem={this.deleteItem} />
+        <UndoList
+          list={undoList}
+          deleteItem={this.deleteItem}
+          changeStatus={this.changeStatus}
+          handleBlur={this.handleBlur}
+          valueChange={this.valueChange}
+        />
       </div>
     );
   }
