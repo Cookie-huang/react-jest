@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import Header from "./components/Header";
+import HeaderWithRedux from "./components/HeaderWithRedux";
 import UndoList from "./components/UndoList";
 import "./style.css";
 
@@ -77,7 +78,8 @@ class TodoList extends Component {
 
     return (
       <div>
-        <Header addUndoItem={this.addUndoItem} />
+        <HeaderWithRedux addUndoItem={this.addUndoItem} />
+        {/* <Header addUndoItem={this.addUndoItem} /> */}
         <UndoList
           list={undoList}
           deleteItem={this.deleteItem}
